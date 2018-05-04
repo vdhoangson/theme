@@ -1,0 +1,35 @@
+{
+    "name": "vdhoangson/theme",
+    "description": "Theme management for laravel 5",
+    "keywords": ["vdhoangson", "theme-generator", "theme", "multi", "asset", "management", "laravel"],
+    "homepage": "https://github.com/vdhoangson/theme",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "vdhoangson",
+            "email": "vdhoangson@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.6",
+        "laravel/framework": ">=5.3",
+        "hassankhan/config": ">=1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "vdhoangson\\Theme\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "vdhoangson\\Theme\\ThemeServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "vdhoangson\\Theme\\Facades\\Theme"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
