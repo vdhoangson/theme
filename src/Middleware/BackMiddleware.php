@@ -20,7 +20,7 @@ class BackMiddleware {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        \Theme::setTheme(config('theme.backend'), config('theme.active'));
+        \Theme::setTheme(config('theme.backend.folder'), config('theme.backend.active'));
 
         return $next($request);
     }

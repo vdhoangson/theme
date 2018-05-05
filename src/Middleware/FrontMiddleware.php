@@ -20,7 +20,7 @@ class FrontMiddleware {
      * @return mixed
      */
     public function handle($request, Closure $next) {
-        \Theme::setTheme(config('theme.frontend'), config('theme.active'));
+        \Theme::setTheme(config('theme.frontend.folder'), config('theme.frontend.active'));
 
         return $next($request);
     }
