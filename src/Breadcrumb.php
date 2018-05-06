@@ -19,6 +19,27 @@ class Breadcrumb implements BreadcrumbContract {
      */
     public $crumbs = [];
 
+    /**
+     * Title
+     * 
+     * @var string
+     */
+    public $title;
+
+    /**
+     * Subtitle
+     * 
+     * @var string
+     */
+    public $subtitle;
+
+    /**
+     * Icon
+     * 
+     * @var string
+     */
+    public $icon;
+
     public function __construct(){}
 
     /**
@@ -52,6 +73,33 @@ class Breadcrumb implements BreadcrumbContract {
     }
 
     /**
+     * Set title
+     * 
+     * @param string $title
+     */
+    public function setTitle($title){
+        $this->title = $title;
+    }
+
+    /**
+     * Set subtitle
+     * 
+     * @param string $subtitle
+     */
+    public function setSubTitle($subtitle){
+        $this->subtitle = $subtitle;
+    }
+
+    /**
+     * Set icon
+     * 
+     * @param string $icon
+     */
+    public function setIcon($icon){
+        $this->icon = $icon;
+    }
+
+    /**
      * Get crumbs.
      *
      * @return array
@@ -68,6 +116,10 @@ class Breadcrumb implements BreadcrumbContract {
     public function render() {
         $breadcrumbs = $this->getCrumbs();
 
-        return view('layouts.breadcrumb', compact('breadcrumbs'))->render();
+        $title = $this->title;
+        $subtitle = $this->subtitle;
+        $icon = $this->icon;
+
+        return view('layouts.breadcrumb', compact('breadcrumbs', 'title', 'subtitle', 'icon'))->render();
     }
 }
