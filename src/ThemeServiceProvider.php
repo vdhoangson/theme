@@ -18,6 +18,7 @@ use vdhoangson\Theme\Console\ThemeListCommand;
 use vdhoangson\Theme\Contracts\ThemeContract;
 use vdhoangson\Theme\Contracts\BreadcrumbContract;
 use \Illuminate\Foundation\AliasLoader;
+use Illuminate\Contracts\Translation\Translator;
 
 class ThemeServiceProvider extends ServiceProvider {
     /**
@@ -75,7 +76,7 @@ class ThemeServiceProvider extends ServiceProvider {
      */
     public function registerTheme() {
         $this->app->singleton(ThemeContract::class, function ($app) {
-            $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config']);
+            $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config'], $this->app['translator']);
 
             return $theme;
         });

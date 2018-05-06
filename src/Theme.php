@@ -14,6 +14,7 @@ use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use vdhoangson\Theme\Contracts\ThemeContract;
 use vdhoangson\Theme\Exceptions\NotFoundException;
+use Illuminate\Contracts\Translation\Translator;
 
 class Theme implements ThemeContract {
     /**
@@ -52,6 +53,13 @@ class Theme implements ThemeContract {
     protected $config;
 
     /**
+     * Language.
+     *
+     * @var Translator
+     */
+    protected $langauge;
+
+    /**
      * Current Active Theme.
      *
      * @var string|collection
@@ -71,11 +79,13 @@ class Theme implements ThemeContract {
      * @param Container           $app
      * @param ViewFinderInterface $finder
      * @param Repository          $config
+     * @param Translator          $langauge
      */
-    public function __construct(Container $app, ViewFinderInterface $finder, Repository $config) {
+    public function __construct(Container $app, ViewFinderInterface $finder, Repository $config, Translator $language) {
         $this->app = $app;
         $this->finder = $finder;
         $this->config = $config;
+        $this->language = $language;
         $this->path = $this->config['theme.path'];
 
         $this->scanThemeFolder();
@@ -234,10 +244,28 @@ class Theme implements ThemeContract {
         }
 
         $viewPath = $themeInfo->get('path').'/'.$this->config['theme.folders.views'];
+        $langPath = $themeInfo->get('path').'/'.$this->config['theme.folders.lang'];
 
         $this->finder->prependLocation($themeInfo->get('path'));
         $this->finder->prependLocation($viewPath);
         $this->finder->prependNamespace($themeInfo->get('place').'.'.$themeInfo->get('name'), $viewPath);
 
+        $this->language->addNamespace($themeInfo->get('name'), $langPath);
+
+    }
+
+    /**
+     * Get lang content.
+     *
+     * @param string $param
+     *
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    public function language($param) {
+        $fallback = $this->currentTheme().'::'.$param;
+        if(!$this->language->has($fallback)){
+            return $param;
+        }
+        return trans($fallback);
     }
 }

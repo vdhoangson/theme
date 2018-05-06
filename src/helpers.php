@@ -19,3 +19,16 @@ if (!function_exists('vassets')) {
         return Theme::assets($path, $secure);
     }
 }
+
+if (!function_exists('vtrans')) {
+    /**
+     * Translate.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    function vtrans($param) {
+        return Theme::language($param);
+    }
+}

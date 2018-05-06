@@ -10,6 +10,7 @@ This is a theme management package for Laravel 5. You can easily integrate this 
 * Multiple theme config extension
 * Multiple theme changelog extension
 * Artisan console commands
+* Translate
 
 ## Installation
 
@@ -124,6 +125,7 @@ Route::group(['prefix' => 'backend', 'middleware'=>'VSThemeBack'], function() {
 - [exists](https://github.com/vdhoangson/theme#exists)
 - [themeInfo](https://github.com/vdhoangson/theme#themeInfo)
 - [assets](https://github.com/vdhoangson/theme#assets)
+- [vtrans](https://github.com/vdhoangson/theme#vtrans)
 
 ### setTheme
 
@@ -213,6 +215,16 @@ vassets('asset_path'); // return string
 ```php
 <link rel="stylesheet" href="{{ vassets('style.css') }}">
 ```
+
+### vtrans
+
+You can translate language by `vtrans` method:
+
+When using helper you can also get assets path:
+```php
+vtrans('your_file.your_key'); // return string
+```
+
 ## Credits
 
 - [vdhoangson](https://github.com/vdhoangson)
