@@ -16,6 +16,7 @@ use File;
 use vdhoangson\Theme\Theme;
 use vdhoangson\Theme\Console\ThemeListCommand;
 use vdhoangson\Theme\Contracts\ThemeContract;
+use vdhoangson\Theme\Contracts\BreadcrumbContract;
 use \Illuminate\Foundation\AliasLoader;
 
 class ThemeServiceProvider extends ServiceProvider {
@@ -35,6 +36,7 @@ class ThemeServiceProvider extends ServiceProvider {
          /* Register Alias */
         $alias = AliasLoader::getInstance();
         $alias->alias('Theme', Facades\Theme::class);
+        $alias->alias('Breadcrumb', Facades\Breadcrumb::class);
         
     }
 
@@ -46,6 +48,7 @@ class ThemeServiceProvider extends ServiceProvider {
     public function register() {
         $this->publishConfig();
         $this->registerTheme();
+        $this->registerBreadcrumb();
         $this->registerHelper();
         $this->consoleCommand();
     }
@@ -75,6 +78,19 @@ class ThemeServiceProvider extends ServiceProvider {
             $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config']);
 
             return $theme;
+        });
+    }
+
+    /**
+     * Register breadcrum required components .
+     *
+     * @return void
+     */
+    public function registerBreadcrumb() {
+        $this->app->singleton(BreadcrumbContract::class, function ($app) {
+            $breadcrumb = new Breadcrumb();
+
+            return $breadcrumb;
         });
     }
 

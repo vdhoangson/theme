@@ -111,7 +111,7 @@ class Theme implements ThemeContract {
                 }
             }
         }
-        
+
         $this->themes = $themes;
     }
 
